@@ -1,18 +1,23 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 import { BaseEntity } from "typeorm/repository/BaseEntity";
-import { IsString, Length, MinLength } from "class-validator";
+import { IsString, IsJSON } from "class-validator";
 
 @Entity()
 export default class Game extends BaseEntity {
   @PrimaryGeneratedColumn() id?: number;
 
   @IsString()
-  @Length(5, 25)
-  @Column("text")
-  title: string;
+  @Column("text", { nullable: false })
+  name: string;
 
   @IsString()
-  @MinLength(10)
-  @Column("text")
-  content: string;
+  @Column("text", { nullable: false })
+  color: string;
+
+  @IsJSON()
+  @Column("json", {
+    nullable: true,
+    default: [["o", "o", "o"], ["o", "o", "o"], ["o", "o", "o"]]
+  })
+  board: object;
 }

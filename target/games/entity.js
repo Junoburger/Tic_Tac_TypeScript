@@ -20,16 +20,22 @@ __decorate([
 ], Game.prototype, "id", void 0);
 __decorate([
     class_validator_1.IsString(),
-    class_validator_1.Length(5, 25),
-    typeorm_1.Column("text"),
+    typeorm_1.Column("text", { nullable: false }),
     __metadata("design:type", String)
-], Game.prototype, "title", void 0);
+], Game.prototype, "name", void 0);
 __decorate([
     class_validator_1.IsString(),
-    class_validator_1.MinLength(10),
-    typeorm_1.Column("text"),
+    typeorm_1.Column("text", { nullable: false }),
     __metadata("design:type", String)
-], Game.prototype, "content", void 0);
+], Game.prototype, "color", void 0);
+__decorate([
+    class_validator_1.IsJSON(),
+    typeorm_1.Column("json", {
+        nullable: true,
+        default: [["o", "o", "o"], ["o", "o", "o"], ["o", "o", "o"]]
+    }),
+    __metadata("design:type", Object)
+], Game.prototype, "board", void 0);
 Game = __decorate([
     typeorm_1.Entity()
 ], Game);
