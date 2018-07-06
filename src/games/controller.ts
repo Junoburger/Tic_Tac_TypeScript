@@ -18,9 +18,12 @@ export default class GameController {
     return { games };
   }
 
-  @Get("/games/:id")
-  getGame(@Param("id") id: number) {
-    return Game.findOne(id);
+  @Post("/games")
+  @HttpCode(201)
+  @HttpCode(418)
+  createGame(@Body() name: Game) {
+    console.log(`Incoming POST body param:`, name);
+    return name.save();
   }
 
   @Patch("/games/:id")
@@ -29,13 +32,5 @@ export default class GameController {
     if (!game) throw new NotFoundError("No Games Here");
 
     return Game.merge(game, update).save();
-  }
-
-  @Post("/games")
-  @HttpCode(201)
-  @HttpCode(418)
-  createGame(@Body() game: Game) {
-    console.log(`Incoming POST body param:`, game);
-    return game.save();
   }
 }
