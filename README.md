@@ -46,3 +46,4 @@ const moves = (board1, board2) =>
 
 commands;
 ```
+# Tic_Tac_Toe-TypeScript
