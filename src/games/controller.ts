@@ -19,11 +19,10 @@ export default class GameController {
     const games = await Game.find();
     return { games };
   }
-
   @Post("/games")
   @HttpCode(201)
   async createGame(@Body() name: string) {
-    console.log(`Incoming POST body param with:`, name);
+    console.log(`Incoming POST body param with name:`, name);
     const newBoard = await new Game();
     newBoard.name = name;
     newBoard.board = defaultBoard;

@@ -21,7 +21,7 @@ let GameController = class GameController {
         return { games };
     }
     async createGame(name) {
-        console.log(`Incoming POST body param with:`, name);
+        console.log(`Incoming POST body param with name:`, name);
         const newBoard = await new entity_1.default();
         newBoard.name = name;
         newBoard.board = game_creator_1.defaultBoard;
