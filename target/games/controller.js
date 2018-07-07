@@ -38,17 +38,15 @@ let GameController = class GameController {
         if (!updatedGame) {
             throw new routing_controllers_1.NotFoundError("HTTP 404 Not Found: No Games Here");
         }
-        else if (update.color && !game_creator_1.validColor(update.color)) {
+        if (update.color && !game_creator_1.validColor(update.color)) {
             throw new routing_controllers_1.BadRequestError("HTTP 400 Bad Request: No Such Color");
         }
-        else if (update.board !== undefined &&
+        if (update.board !== undefined &&
             game_creator_1.moves(update.board, updatedGame.board) > 1) {
             throw new routing_controllers_1.BadRequestError("HTTP 400 Bad Request:  Only one move allowed. Wait your turn");
         }
-        else {
-            console.log("Game has been updated");
-            return entity_1.default.merge(updatedGame, update).save();
-        }
+        console.log("Game has been updated");
+        return entity_1.default.merge(updatedGame, update).save();
     }
 };
 __decorate([
