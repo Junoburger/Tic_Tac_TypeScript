@@ -8,7 +8,7 @@ exports.randomColor = () => {
     return existingColors[Math.floor(Math.random() * existingColors.length)];
 };
 exports.validColor = newColor => {
-    if (existingColors.indexOf(newColor))
+    if (existingColors.includes(newColor))
         return newColor;
 };
 exports.defaultBoard = [["o", "o", "o"], ["o", "o", "o"], ["o", "o", "o"]];

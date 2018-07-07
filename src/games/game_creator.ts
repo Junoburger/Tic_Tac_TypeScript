@@ -10,7 +10,7 @@ export const randomColor = () => {
 };
 
 export const validColor = newColor => {
-  if (existingColors.indexOf(newColor)) return newColor;
+  if (existingColors.includes(newColor)) return newColor;
 };
 
 export const defaultBoard = [["o", "o", "o"], ["o", "o", "o"], ["o", "o", "o"]];

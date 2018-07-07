@@ -31,9 +31,9 @@ export default class GameController {
   async createGame(@Body() name: string) {
     console.log(`Incoming POST body param with name:`, name);
     const newBoard = await new Game();
-    newBoard.name = name;
-    newBoard.board = defaultBoard;
-    newBoard.color = randomColor();
+    newBoard.name = await name;
+    newBoard.board = await defaultBoard;
+    newBoard.color = await randomColor();
     console.log("Created New Game, with color " + newBoard.color);
     return newBoard.save();
   }
@@ -44,7 +44,7 @@ export default class GameController {
     const updatedGame = await Game.findOne(id);
     if (!updatedGame) {
       throw new NotFoundError("HTTP 404 Not Found: No Games Here");
-    } else if (update.color !== validColor(update.color)) {
+    } else if (update.color && !validColor(update.color)) {
       throw new BadRequestError("HTTP 400 Bad Request: No Such Color");
     } else if (
       update.board !== undefined &&

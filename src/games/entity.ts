@@ -8,7 +8,7 @@ export default class Game extends BaseEntity {
   @PrimaryGeneratedColumn() id?: number;
 
   @IsString()
-  @Column("text", { nullable: false })
+  @Column("text", { nullable: true })
   name: string;
 
   @IsString()
