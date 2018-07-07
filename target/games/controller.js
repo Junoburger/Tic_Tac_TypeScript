@@ -14,20 +14,36 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 const entity_1 = require("./entity");
+const game_creator_1 = require("./game_creator");
 let GameController = class GameController {
     async allGames() {
         const games = await entity_1.default.find();
         return { games };
     }
-    createGame(name) {
-        console.log(`Incoming POST body param:`, name);
-        return name.save();
+    async createGame(name) {
+        console.log(`Incoming POST body param with:`, name);
+        const newBoard = await new entity_1.default();
+        newBoard.name = name;
+        newBoard.board = game_creator_1.defaultBoard;
+        newBoard.color = game_creator_1.randomColor();
+        console.log("Created New Game, with color " + newBoard.color);
+        return newBoard.save();
     }
     async updateGame(id, update) {
-        const game = await entity_1.default.findOne(id);
-        if (!game)
-            throw new routing_controllers_1.NotFoundError("No Games Here");
-        return entity_1.default.merge(game, update).save();
+        const updatedGame = await entity_1.default.findOne(id);
+        if (!updatedGame) {
+            throw new routing_controllers_1.NotFoundError("HTTP 404 Not Found: No Games Here");
+        }
+        else if (update.color !== game_creator_1.validColor(update.color)) {
+            throw new routing_controllers_1.BadRequestError("HTTP 400 Bad Request: No Such Color");
+        }
+        else if (update.board && game_creator_1.moves(update.board, updatedGame.board) > 1) {
+            throw new routing_controllers_1.BadRequestError("HTTP 400 Bad Request:  Only one move allowed. Wait your turn");
+        }
+        else {
+            console.log("Game has been updated");
+            return entity_1.default.merge(updatedGame, update).save();
+        }
     }
 };
 __decorate([
@@ -39,14 +55,14 @@ __decorate([
 __decorate([
     routing_controllers_1.Post("/games"),
     routing_controllers_1.HttpCode(201),
-    routing_controllers_1.HttpCode(418),
     __param(0, routing_controllers_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [entity_1.default]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
 ], GameController.prototype, "createGame", null);
 __decorate([
     routing_controllers_1.Patch("/games/:id"),
+    routing_controllers_1.HttpCode(200),
     __param(0, routing_controllers_1.Param("id")), __param(1, routing_controllers_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Object]),
