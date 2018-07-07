@@ -40,13 +40,15 @@ export default class GameController {
       throw new NotFoundError("HTTP 404 Not Found: No Games Here");
     } else if (update.color !== validColor(update.color)) {
       throw new BadRequestError("HTTP 400 Bad Request: No Such Color");
-    } else if (update.board && moves(update.board, updatedGame.board) > 1) {
+    } else if (
+      update.board !== undefined &&
+      moves(update.board, updatedGame.board) > 1
+    ) {
       throw new BadRequestError(
         "HTTP 400 Bad Request:  Only one move allowed. Wait your turn"
       );
     } else {
       console.log("Game has been updated");
-
       return Game.merge(updatedGame, update).save();
     }
   }

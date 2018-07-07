@@ -1,17 +1,5 @@
 # Typescript Homework
 
-_Note: we'll use the results of this homework assignment for a formal evaluation and as such you should write the code individually. Plagiarism is a violation of the Academy contract and makes nobody happy._
-
----
-
-### Intro
-
-Next week we'll start to work on some multiplayer games in Typescript. To get into the vibe, this homework is to make sure you understand all the parts of your REST API and to recap the work we did in Typescript.
-
-We will evaluate you on functionality but also on general delivery and code quality. Make sure your repo contains the stuff it needs to contain and your code is DRY.
-
-**Send your homework to teachers@codaisseur.com before Sunday 20:00**
-
 ### Step-by-step instructions
 
 These are the steps to create a basic backend (API-only):
@@ -30,21 +18,4 @@ These are the steps to create a basic backend (API-only):
 
 7.  When a **game is changed** and the board field is updated, make sure only 1 move is made per request. That means that only one element out of the 9 can be changed into something else. You can use the function below to count the number of moves between two boards. If somebody tries to make more moves, return a `HTTP 400 Bad Request` response. If everything is fine, update the board field of the game. \*\*
 
-\* the start position of the board in code:
-
-```js
-const defaultBoard = [["o", "o", "o"], ["o", "o", "o"], ["o", "o", "o"]];
-```
-
-\*\* a function that returns the number of changes between boards
-
-```js
-const moves = (board1, board2) =>
-  board1
-    .map((row, y) => row.filter((cell, x) => board2[y][x] !== cell))
-    .reduce((a, b) => a.concat(b)).length;
-```
-
-# Tic_Tac_Toe-TypeScript
-
-commands
+# Tic_Tac_TypeScript

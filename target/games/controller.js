@@ -37,7 +37,8 @@ let GameController = class GameController {
         else if (update.color !== game_creator_1.validColor(update.color)) {
             throw new routing_controllers_1.BadRequestError("HTTP 400 Bad Request: No Such Color");
         }
-        else if (update.board && game_creator_1.moves(update.board, updatedGame.board) > 1) {
+        else if (update.board !== undefined &&
+            game_creator_1.moves(update.board, updatedGame.board) > 1) {
             throw new routing_controllers_1.BadRequestError("HTTP 400 Bad Request:  Only one move allowed. Wait your turn");
         }
         else {
