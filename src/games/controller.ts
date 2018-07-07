@@ -14,11 +14,18 @@ import { randomColor, defaultBoard, validColor, moves } from "./game_creator";
 
 @JsonController()
 export default class GameController {
+  @Get("/games/:id")
+  async getGame(@Param("id") id: number) {
+    const game = await Game.findOne(id);
+    return { game };
+  }
+
   @Get("/games")
   async allGames() {
     const games = await Game.find();
     return { games };
   }
+
   @Post("/games")
   @HttpCode(201)
   async createGame(@Body() name: string) {

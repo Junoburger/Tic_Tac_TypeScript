@@ -16,6 +16,10 @@ const routing_controllers_1 = require("routing-controllers");
 const entity_1 = require("./entity");
 const game_creator_1 = require("./game_creator");
 let GameController = class GameController {
+    async getGame(id) {
+        const game = await entity_1.default.findOne(id);
+        return { game };
+    }
     async allGames() {
         const games = await entity_1.default.find();
         return { games };
@@ -47,6 +51,13 @@ let GameController = class GameController {
         }
     }
 };
+__decorate([
+    routing_controllers_1.Get("/games/:id"),
+    __param(0, routing_controllers_1.Param("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], GameController.prototype, "getGame", null);
 __decorate([
     routing_controllers_1.Get("/games"),
     __metadata("design:type", Function),
