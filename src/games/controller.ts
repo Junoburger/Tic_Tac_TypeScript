@@ -48,10 +48,7 @@ export default class GameController {
     if (update.color && !validColor(update.color)) {
       throw new BadRequestError("HTTP 400 Bad Request: No Such Color");
     }
-    if (
-      update.board !== undefined &&
-      moves(update.board, updatedGame.board) > 1
-    ) {
+    if (moves(update.board, updatedGame.board) > 1) {
       throw new BadRequestError(
         "HTTP 400 Bad Request:  Only one move allowed. Wait your turn"
       );
