@@ -1,4 +1,14 @@
-import {Get, JsonController, Param, Body, Post, HttpCode, Patch, NotFoundError, BadRequestError} from "routing-controllers";
+import {
+  Get,
+  JsonController,
+  Param,
+  Body,
+  Post,
+  HttpCode,
+  Patch,
+  NotFoundError,
+  BadRequestError
+} from "routing-controllers";
 import Game from "./entity";
 import { randomColor, defaultBoard, validColor, moves } from "./game_creator";
 
@@ -36,12 +46,17 @@ export default class GameController {
       throw new NotFoundError("HTTP 404 Not Found: No Games Here");
     }
     if (update.color && !validColor(update.color)) {
-      throw new BadRequestError("HTTP 400 Bad Request: No Such Color, provide an allowed hexadecimal");
+      throw new BadRequestError(
+        "HTTP 400 Bad Request: No Such Color, provide an allowed hexadecimal."
+      );
     }
     if (moves(update.board, updatedGame.board) > 1) {
       throw new BadRequestError(
-        "HTTP 400 Bad Request:  Only one move allowed. Wait your turn"
+        "HTTP 400 Bad Request:  Only one move allowed. Wait your turn."
       );
+    }
+    if (moves(update.board, updatedGame.board) < 1) {
+      throw new BadRequestError("HTTP 400 Bad Request:  Please make a move.");
     }
     console.log("Game has been updated");
     return Game.merge(updatedGame, update).save();

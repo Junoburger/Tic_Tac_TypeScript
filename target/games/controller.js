@@ -39,10 +39,13 @@ let GameController = class GameController {
             throw new routing_controllers_1.NotFoundError("HTTP 404 Not Found: No Games Here");
         }
         if (update.color && !game_creator_1.validColor(update.color)) {
-            throw new routing_controllers_1.BadRequestError("HTTP 400 Bad Request: No Such Color, provide an allowed hexadecimal");
+            throw new routing_controllers_1.BadRequestError("HTTP 400 Bad Request: No Such Color, provide an allowed hexadecimal.");
         }
         if (game_creator_1.moves(update.board, updatedGame.board) > 1) {
-            throw new routing_controllers_1.BadRequestError("HTTP 400 Bad Request:  Only one move allowed. Wait your turn");
+            throw new routing_controllers_1.BadRequestError("HTTP 400 Bad Request:  Only one move allowed. Wait your turn.");
+        }
+        if (game_creator_1.moves(update.board, updatedGame.board) < 1) {
+            throw new routing_controllers_1.BadRequestError("HTTP 400 Bad Request:  Please make a move.");
         }
         console.log("Game has been updated");
         return entity_1.default.merge(updatedGame, update).save();
