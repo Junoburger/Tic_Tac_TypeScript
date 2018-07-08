@@ -5,12 +5,9 @@ export const moves = (board1, board2) =>
 
 const existingColors = ["blue", "red", "green", "magenta", "yellow"];
 
-export const randomColor = () => {
-  return existingColors[Math.floor(Math.random() * existingColors.length)];
-};
+export const randomColor = () =>
+  existingColors[Math.floor(Math.random() * existingColors.length)];
 
-export const validColor = newColor => {
-  if (existingColors.includes(newColor)) return newColor;
-};
+export const validColor = newColor => existingColors.includes(newColor);
 
 export const defaultBoard = [["o", "o", "o"], ["o", "o", "o"], ["o", "o", "o"]];
