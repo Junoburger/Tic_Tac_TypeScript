@@ -20,5 +20,5 @@ export default class Game extends BaseEntity {
     nullable: true,
     default: defaultBoard
   })
-  board: object;
+  board: string[][];
 }

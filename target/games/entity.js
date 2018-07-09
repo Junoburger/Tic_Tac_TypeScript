@@ -35,7 +35,7 @@ __decorate([
         nullable: true,
         default: game_creator_1.defaultBoard
     }),
-    __metadata("design:type", Object)
+    __metadata("design:type", Array)
 ], Game.prototype, "board", void 0);
 Game = __decorate([
     typeorm_1.Entity()

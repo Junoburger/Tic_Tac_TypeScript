@@ -7,7 +7,8 @@ import {
   HttpCode,
   Patch,
   NotFoundError,
-  BadRequestError
+  BadRequestError,
+  BodyParam
 } from "routing-controllers";
 import Game from "./entity";
 import { randomColor, defaultBoard, validColor, moves } from "./game_creator";
@@ -28,12 +29,12 @@ export default class GameController {
 
   @Post("/games")
   @HttpCode(201)
-  async createGame(@Body() name: string) {
+  async createGame(@BodyParam("name") name: string) {
     console.log(`Incoming POST body param with name:`, name);
     const newBoard = await new Game();
-    newBoard.name = await name;
-    newBoard.board = await defaultBoard;
-    newBoard.color = await randomColor();
+    newBoard.name = name;
+    newBoard.board = defaultBoard;
+    newBoard.color = randomColor();
     console.log("Created New Game, with color " + newBoard.color);
     return newBoard.save();
   }
@@ -42,10 +43,11 @@ export default class GameController {
   @HttpCode(200)
   async updateGame(@Param("id") id: number, @Body() update: Partial<Game>) {
     const updatedGame = await Game.findOne(id);
+
     if (!updatedGame) {
       throw new NotFoundError("HTTP 404 Not Found: No Games Here");
     }
-    if (update.color && !validColor(update.color)) {
+    if (update.color !== undefined && !validColor(update.color)) {
       throw new BadRequestError(
         "HTTP 400 Bad Request: No Such Color, provide an allowed hexadecimal."
       );
