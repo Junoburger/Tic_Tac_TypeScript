@@ -1,1 +1,0 @@
-{"version":3,"file":"validator.js","sourceRoot":"","sources":["../../src/games/validator.ts"],"names":[],"mappings":";;AACa,QAAA,UAAU,GAAG,CAAC,IAAI,EAAE,EAAE;IAC/B,IACE,kBAAU;QACV,CAAC,CACC,kBAAU,KAAK,KAAK;YACpB,kBAAU,KAAK,MAAM;YACrB,kBAAU,KAAK,OAAO;YACtB,kBAAU,KAAK,QAAQ;YACvB,kBAAU,KAAK,SAAS,CACzB;QACF,CAAA;AAAA,CAAC,CAAA"}
